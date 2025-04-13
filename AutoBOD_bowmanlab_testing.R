@@ -102,7 +102,7 @@ data$elapsed_time_decimal <- as.numeric(data$elapsed_date_time - init_time)/60 #
 
 data$air_sat <- calc_air_sat(data$phase/100, data$T_bottle)
 data$o2_calc <- calc_o2_conc(data$air_sat, data$T_bottle)
-data$o2_calc <- data$o2_calc * 31.25
+data$o2_calc <- data$o2_calc * 31.25 # Conversion factor in Dan's code, not sure what it's for
 
 plot(data$o2_calc ~ data$phase)
 
