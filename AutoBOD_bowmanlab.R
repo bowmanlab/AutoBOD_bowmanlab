@@ -1,7 +1,6 @@
-
-system('ls *txt|parallel python3 clean_autobod.py {}')
-
-path <- '~/bowman_lab/sccoos/autobod/'
+system('ls *txt|parallel python3 clean_autobod.py {}') # only necessary if capturing data on windows machine
+ 
+path <- './'
 f.list <- list.files(path = path,
                      pattern = 'autoBOD.txt',
                      ignore.case = F)
@@ -76,7 +75,8 @@ for(f in f.list){
   name <- sub('.txt', '', f)
   name <- paste0(path, name)
 
-  data <- read.csv(paste0(name, '.clean.csv'), header = F, sep = ',', col.names = columns)
+  data <- read.table(paste0(name, '.txt'), header = F, col.names = columns)
+  #data <- read.csv(paste0(name, '.clean.csv'), header = F, sep = ',', col.names = columns) # use this if you ran clean_autobod.py
   data <- data[data$error_code %in% c(1,5),]
   data$elapsed_date_time <- paste(data$date, data$elapsed_time)
   data$elapsed_date_time <- strptime(data$elapsed_date_time, format = '%d %H:%M:%S')
